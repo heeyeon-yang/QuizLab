@@ -31,8 +31,8 @@ No NAT Gateway anywhere in this project. Instead of giving Lambda a route to the
 
 - Networking — VPC, subnets, layered security groups, internet gateway
 - Compute — Auto Scaling Group, ALB, IAM role
-- AI pipeline — S3, Lambda, Bedrock ([design doc](docs/03-s3-lambda-bedrock-design.md))
-- RDS / ElastiCache / SQS ([design doc](docs/04-rds-elasticache-sqs-design.md))
+- AI Pipeline — S3, Lambda, Bedrock | [design doc](docs/architecture-decisions.md#ai-pipeline--s3-lambda-bedrock) 
+- RDS / ElastiCache / SQS | [design doc](docs/architecture-decisions.md#rds-elasticache-sqs) 
 
 Still to come: CloudFront/WAF, CloudWatch and IAM hardening.
 
