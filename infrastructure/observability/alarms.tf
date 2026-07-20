@@ -77,22 +77,6 @@ resource "aws_cloudwatch_metric_alarm" "rds_free_storage_low" {
   }
 }
 
-# ---- ElastiCache ----
-resource "aws_cloudwatch_metric_alarm" "cache_cpu_high" {
-  alarm_name          = "quizlab-cache-cpu-high"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods   = 2
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/ElastiCache"
-  period              = 300
-  statistic           = "Average"
-  threshold           = 80
-  alarm_actions       = [aws_sns_topic.alerts.arn]
-  dimensions = {
-    CacheClusterId = "quizlab-cache"
-  }
-}
-
 # ---- Lambda ----
 resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
   alarm_name          = "quizlab-lambda-errors"
@@ -137,5 +121,33 @@ resource "aws_cloudwatch_metric_alarm" "dlq_messages" {
   alarm_actions       = [aws_sns_topic.alerts.arn]
   dimensions = {
     QueueName = "quizlab-quiz-jobs-dlq"
+  }
+}
+resource "aws_cloudwatch_metric_alarm" "lambda_worker_errors" {
+  alarm_name          = "quizlab-lambda-worker-errors"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods   = 1
+  metric_name         = "Errors"
+  namespace           = "AWS/Lambda"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 3
+  alarm_actions       = [aws_sns_topic.alerts.arn]
+  dimensions = {
+    FunctionName = "quizlab-quiz-worker"
+  }
+}
+resource "aws_cloudwatch_metric_alarm" "lambda_worker_throttles" {
+  alarm_name          = "quizlab-lambda-worker-throttles"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods   = 1
+  metric_name         = "Throttles"
+  namespace           = "AWS/Lambda"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 0
+  alarm_actions       = [aws_sns_topic.alerts.arn]
+  dimensions = {
+    FunctionName = "quizlab-quiz-worker"
   }
 }
