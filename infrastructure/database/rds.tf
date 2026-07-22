@@ -40,15 +40,6 @@ resource "aws_security_group" "rds" {
   }
 }
 
-resource "aws_security_group_rule" "rds_from_lambda" {
-  type                     = "ingress"
-  from_port                = 3306
-  to_port                  = 3306
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.rds.id
-  source_security_group_id = var.lambda_sg_id
-  description               = "MySQL from Lambda"
-}
 
 resource "random_password" "db_password" {
   length  = 24
