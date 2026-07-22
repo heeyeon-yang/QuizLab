@@ -21,13 +21,6 @@ resource "aws_security_group" "cache" {
   description = "quizlab-cache-sg"
   vpc_id      = var.vpc_id
 
-  ingress {
-    description     = "Redis from Lambda"
-    from_port       = 6379
-    to_port         = 6379
-    protocol        = "tcp"
-    security_groups = [var.lambda_sg_id]
-  }
 
   egress {
     from_port   = 0
