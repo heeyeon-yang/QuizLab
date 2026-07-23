@@ -14,11 +14,6 @@ variable "private_subnet_ids" {
   ]
 }
 
-variable "lambda_sg_id" {
-  description = "Output of vpc-endpoints layer. Apply vpc-endpoints first."
-  type        = string
-}
-
 variable "node_type" {
   description = "cache.t3.micro - smallest burstable Redis node"
   default     = "cache.t3.micro"

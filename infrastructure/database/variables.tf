@@ -14,11 +14,6 @@ variable "private_subnet_ids" {
   ]
 }
 
-variable "lambda_sg_id" {
-  description = "Output of vpc-endpoints layer (aws_security_group.lambda.id). Apply vpc-endpoints first."
-  type        = string
-}
-
 variable "db_name" {
   default = "quizlab"
 }

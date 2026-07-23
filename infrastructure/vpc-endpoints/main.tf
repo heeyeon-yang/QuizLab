@@ -11,29 +11,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-# ---------------------------------------------------------------------------
-# Lambda now needs to sit inside the VPC to reach RDS/ElastiCache in private
-# subnets. This SG is what RDS/ElastiCache SGs will allow ingress from.
-# ---------------------------------------------------------------------------
-resource "aws_security_group" "lambda" {
-  name        = "quizlab-lambda-sg"
-  description = "quizlab-lambda-sg" # keep description identical to console value for future import safety
-  vpc_id      = var.vpc_id
-
-  egress {
-    description = "Allow all outbound (to RDS/ElastiCache in-VPC and VPC endpoints)"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name    = "quizlab-lambda-sg"
-    Project = "QuizLab"
-  }
-}
-
 
 # ---------------------------------------------------------------------------
 # S3 Gateway endpoint - free, attaches to route tables of private subnets
